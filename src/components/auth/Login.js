@@ -10,10 +10,10 @@ export const Login = () => {
     const handleLogin = (e) => {
         e.preventDefault()
 
-        return fetch(`http://localhost:8088/users?email=${email}`)
+        return fetch(`http://localhost:8088/users?email=${email}`)  //fetch call to json server 
             .then(res => res.json())
             .then(foundUsers => {
-                if (foundUsers.length === 1) {
+                if (foundUsers.length === 1) {  //if valid email in localStorage (below) setting setItem to "honey_user"
                     const user = foundUsers[0]
                     localStorage.setItem("honey_user", JSON.stringify({
                         id: user.id,
