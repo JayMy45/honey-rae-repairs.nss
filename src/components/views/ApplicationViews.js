@@ -1,4 +1,5 @@
 import { Outlet, Route, Routes } from "react-router-dom" //where in the hell is this????  AND wtf do they do???
+import { TicketForm } from "../tickets/TicketForm"
 import { TicketList } from "../tickets/TicketList"
 
 
@@ -17,6 +18,9 @@ export const ApplicationViews = () => {
 			}>
 
 				<Route path="tickets" element={<TicketList />} />
+
+				<Route path="ticket/create" element={<TicketForm />} />
+				   // ^ watches browser URL and displays the correct component (ApplicationViews Module)
 			</Route>
 		</Routes>
 	)

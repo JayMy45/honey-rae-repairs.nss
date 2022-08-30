@@ -1,5 +1,6 @@
 //code provided from lesson...typed not copy/pasted
-import { useEffect, useInsertionEffect, useState } from "react"  //Where in the hell are these from.../imgres
+import { useEffect, useState } from "react"  //Where in the hell are these from...
+import { useNavigate } from "react-router-dom"
 import "./Tickets.css"  //import css styling files directly from ticket.css within tickets folder.
 
 export const TicketList = () => {
@@ -12,6 +13,8 @@ export const TicketList = () => {
     const [emergency, setEmergency] = useState(false) //set state equal to false b/c we don't want the state to filter straightaway
     //^ to display a list of emergency tickets...
 
+    const navigate = useNavigate() //used for navigation...
+
     const localHoneyUser = localStorage.getItem("honey_user")  //this variable holds object created whenever logged in which honey_user: which is created whenever a authorized user logs in with email (Login.js lines 18-20)
     const honeyUserObject = JSON.parse(localHoneyUser) //converts JSON data to object that can be used code-side
 
@@ -20,7 +23,7 @@ export const TicketList = () => {
         () => { //updated conditionals to only be available to staff members!!!
             if (emergency && honeyUserObject.staff === true) { //if the array emergency is true
                 const emergencyTickets = tickets.filter(ticket => ticket.emergency === true) //then emergencyTickets 
-                setFiltered(emergencyTickets)  //ue setterFunction setFiltered() to display emergencyTicket with .emergency info...
+                setFiltered(emergencyTickets)  //use setterFunction setFiltered() to display emergencyTicket with .emergency info...
             } else if (honeyUserObject.staff === true) {
                 // (honeyUserObject.staff === true)
                 setFiltered(tickets)
@@ -64,22 +67,32 @@ export const TicketList = () => {
     )
 
     return <>
-        <>
-            <button
-                onClick={  //onClick function sets state of setEmergency to true...
-                    () => {
-                        setEmergency(true)
-                    }
-                } >Emergency Only</button>
+        {
 
-            <button
-                onClick={  //onClick function sets state of setEmergency to false...
-                    () => {
-                        setEmergency(false)
-                    }
-                }
-            >Show all</button>
-        </>
+            honeyUserObject.staff //ternary statement added to show buttons whenever logged in as a employee. (08/30 @ 10:07amS)
+                // & if employee show these buttons below
+                ? <>
+
+                    <button
+                        onClick={  //onClick function sets state of setEmergency to true...
+                            () => {
+                                setEmergency(true)
+                            }
+                        } >Emergency Only</button>
+
+                    <button
+                        onClick={  //onClick function sets state of setEmergency to false...
+                            () => {
+                                setEmergency(false)
+                            }
+                        }
+                    >Show all</button>
+                </>
+                : <button onClick={() => navigate("/ticket/create")}>Create Ticket</button> // (08/30 @ 10:08am)
+            //& ^ else when user is not a customer show this button...(if you want to show nothing then quotation marks should follow the colon!)
+        }
+
+
         <h2>List of Tickets</h2>
 
         <article className="tickets">
