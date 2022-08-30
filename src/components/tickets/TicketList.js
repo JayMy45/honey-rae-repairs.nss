@@ -22,6 +22,7 @@ export const TicketList = () => {
                 const emergencyTickets = tickets.filter(ticket => ticket.emergency === true) //then emergencyTickets 
                 setFiltered(emergencyTickets)  //ue setterFunction setFiltered() to display emergencyTicket with .emergency info...
             } else {
+                // (honeyUserObject.staff === true)
                 setFiltered(tickets)
             }
         },
