@@ -17,11 +17,11 @@ export const TicketList = () => {
 
 
     useEffect(
-        () => {
-            if (emergency) { //if the array emergency is true
+        () => { //updated conditionals to only be available to staff memebers!!!
+            if (emergency && honeyUserObject.staff === true) { //if the array emergency is true
                 const emergencyTickets = tickets.filter(ticket => ticket.emergency === true) //then emergencyTickets 
                 setFiltered(emergencyTickets)  //ue setterFunction setFiltered() to display emergencyTicket with .emergency info...
-            } else {
+            } else if (honeyUserObject.staff === true) {
                 // (honeyUserObject.staff === true)
                 setFiltered(tickets)
             }
