@@ -21,10 +21,14 @@ export const TicketList = () => {
             if (emergency) { //if the array emergency is true
                 const emergencyTickets = tickets.filter(ticket => ticket.emergency === true) //then emergencyTickets 
                 setFiltered(emergencyTickets)  //ue setterFunction setFiltered() to display emergencyTicket with .emergency info...
+            } else {
+                setFiltered(tickets)
             }
         },
         [emergency]
     )
+
+
 
     useEffect(
         () => {
@@ -59,13 +63,22 @@ export const TicketList = () => {
     )
 
     return <>
-        <button
-            onClick={  //onClick function sets state of setEmergency to true...
-                () => {
-                    setEmergency(true)
-                }
-            } >Emergency Only</button>
+        <>
+            <button
+                onClick={  //onClick function sets state of setEmergency to true...
+                    () => {
+                        setEmergency(true)
+                    }
+                } >Emergency Only</button>
 
+            <button
+                onClick={  //onClick function sets state of setEmergency to false...
+                    () => {
+                        setEmergency(false)
+                    }
+                }
+            >Show all</button>
+        </>
         <h2>List of Tickets</h2>
 
         <article className="tickets">
