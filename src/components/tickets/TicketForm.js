@@ -15,6 +15,8 @@ export const TicketForm = () => {
         the user to the ticket list
     */
 
+    const navigate = useNavigate()
+
     const localHoneyUser = localStorage.getItem("honey_user")
     const honeyUserObject = JSON.parse(localHoneyUser)
 
@@ -22,10 +24,42 @@ export const TicketForm = () => {
         event.preventDefault()
         console.log("You can do it...CLICK the button again!!!!")
 
-        // TODO: Create the object to be saved to the API
+        //TODO: Create the object to be saved to the API
 
+        /*
 
+        ? "id": JSON server handles id so there's no need to update so it has been deleted from description template...
+        {
+            "userId": 3,
+            "description": "Saepe ex sapiente deserunt et voluptas fugiat vero quasi. Ipsam est non ipsa. Occaecati rerum ipsa consequuntur. Ratione commodi unde sint non rerum. Sit quia et aut sunt.",
+            "emergency": false,
+            "dateCompleted": ""
+        }
+        */
         // TODO: Perform the fetch() to POST the object to the API
+
+        const ticketToSendToAPI = {
+            userId: honeyUserObject.id,  //getting id from variable defined above
+            description: ticket.description, //getting description from ticket in useState({}) deconstruction (description key)
+            emergency: ticket.emergency,  //getting description from ticket in useState({}) deconstruction (description key)
+            dateCompleted: ""
+
+            //convert object into a string and post to API
+
+        }
+
+        return fetch(`http://localhost:8088/serviceTickets`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(ticketToSendToAPI)
+        })
+            .then(response => response.json())
+            .then(() => {
+                navigate("/tickets")
+
+            })
     }
 
     return (
