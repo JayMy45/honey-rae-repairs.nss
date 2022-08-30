@@ -13,12 +13,17 @@ export const TicketList = () => {
     const [emergency, setEmergency] = useState(false) //set state equal to false b/c we don't want the state to filter straightaway
     //^ to display a list of emergency tickets...
 
+    const [openOnly, updateOpenOnly] = useState(false)
+
     const navigate = useNavigate() //used for navigation...
 
     const localHoneyUser = localStorage.getItem("honey_user")  //this variable holds object created whenever logged in which honey_user: which is created whenever a authorized user logs in with email (Login.js lines 18-20)
     const honeyUserObject = JSON.parse(localHoneyUser) //converts JSON data to object that can be used code-side
 
 
+
+
+    // & Emergency
     useEffect(
         () => { //updated conditionals to only be available to staff members!!!
             if (emergency && honeyUserObject.staff === true) { //if the array emergency is true
@@ -33,7 +38,7 @@ export const TicketList = () => {
     )
 
 
-
+    // & initial state (empty)
     useEffect(
         () => {
             fetch(`http://localhost:8088/serviceTickets`) //go get all tickets
@@ -48,6 +53,7 @@ export const TicketList = () => {
         //When this array is empty, you are observing initial component state...initial state to display after fetch call...
     )
 
+    // & tickets 
     // ? whenever state changes we need to observe ticket state using the useEffect Method.
     useEffect(
         () => {
@@ -64,6 +70,22 @@ export const TicketList = () => {
             }
         },
         [tickets] //what useEffect is watching for specific state variable 
+    )
+
+    // & Open Only
+    useEffect(
+        () => {
+            if (openOnly) {
+                const openTicketArray = tickets.filter(ticket => {
+                    return ticket.userId === honeyUserObject.id && ticket.dateCompleted === ""
+                })
+                setFiltered(openTicketArray)
+            } else {
+                const myTickets = tickets.filter(ticket => ticket.userId === honeyUserObject.id)
+                setFiltered(myTickets)
+            }
+        },
+        [openOnly]
     )
 
     return <>
@@ -88,8 +110,15 @@ export const TicketList = () => {
                         }
                     >Show all</button>
                 </>
-                : <button onClick={() => navigate("/ticket/create")}>Create Ticket</button> // (08/30 @ 10:08am)
-            //& ^ else when user is not a customer show this button...(if you want to show nothing then quotation marks should follow the colon!)
+                : <>
+                    <button onClick={() => navigate("/ticket/create")}>Create Ticket</button>
+                    <button onClick={() => { updateOpenOnly(true) }} >Open Ticket</button>
+                    <button onClick={() => { updateOpenOnly(false) }}>All My Tickets</button>
+                </>
+
+            //create "Open Ticket" and "All My Tickets" buttons...this ternary function already distinguishes between customer and employee
+
+            //& clicking this button will change the route to ticket/create (when button is clicked)... (navigate defined above and route )
         }
 
 
@@ -111,3 +140,24 @@ export const TicketList = () => {
     </>
 }
 
+
+
+
+/*   
+? CLEAN VERSION OF onClick EVENT LISTENERS FROM EMERGENCY BUTTONS
+        { 
+            honeyUserObject.staff
+            ? <> 
+                < button onClick={() => setEmergency(true)}> Emergency Only</button>
+                <button onClick={() => setEmergency(false)} >Show All</button>
+            </>
+            :<button onClick={() => navigate("/ticket/create")}> Create Ticket</button>
+}
+
+if a staff member is logged in then "Emergency Only"/"Show All" buttons will display (with functions)...
+else the "Create Ticket" button will appear for customers (if not a employee that signed in it must be a customer).
+
+^whenever button is "Create Ticket" button is clicked the programs routes to /ticket/create (in ApplicationsViews) where the route is defined as TicketForm...there the form will be rendered.
+
+How do websites handle guests...if not storing the data from users in the API...is there a short term memory options for GUESTs?
+*/
