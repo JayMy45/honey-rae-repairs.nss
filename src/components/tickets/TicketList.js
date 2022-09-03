@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"  //Where in the hell are these from.
 import { useNavigate } from "react-router-dom"
 import "./Tickets.css"  //import css styling files directly from ticket.css within tickets folder.
 
-export const TicketList = () => {
+export const TicketList = ({ searchTermState }) => {
     const [tickets, setTickets] = useState([])  //  initial State set to empty array -- useState([]) is a function provided by React to store the state in a component returning an array that contains the initial state value at index 0  and a function that modifies the state at index 1(?).
     // ^deconstructuring the useState() function...
 
@@ -20,7 +20,17 @@ export const TicketList = () => {
     const localHoneyUser = localStorage.getItem("honey_user")  //this variable holds object created whenever logged in which honey_user: which is created whenever a authorized user logs in with email (Login.js lines 18-20)
     const honeyUserObject = JSON.parse(localHoneyUser) //converts JSON data to object that can be used code-side
 
+    useEffect(
+        () => {
+            console.log(searchTermState)
+            const searchedTickets = tickets.filter(ticket => {
+                return ticket.description.toLowerCase().startsWith(searchTermState.toLowerCase())
+            })
+            setFiltered(searchedTickets)
 
+        },
+        [searchTermState]
+    )
 
 
     // & Emergency
@@ -44,7 +54,7 @@ export const TicketList = () => {
             fetch(`http://localhost:8088/serviceTickets`) //go get all tickets
                 .then(response => response.json()) //get response back from server
                 .then((ticketArray) => {
-                    setTickets(ticketArray)  //setTickets is deconstructured above...a function...
+                    setTickets(ticketArray)  //setTickets is deconstructed above...a function...
                 })
 
             // console.log("Initial state of tickets", tickets) //view the initial state of tickets  (one is a string the other a parameter from deconstructed variable above)
