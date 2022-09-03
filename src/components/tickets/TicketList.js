@@ -22,7 +22,7 @@ export const TicketList = ({ searchTermState }) => {
 
     useEffect(
         () => {
-            console.log(searchTermState)
+            // console.log(searchTermState)
             const searchedTickets = tickets.filter(ticket => {
                 return ticket.description.toLowerCase().startsWith(searchTermState.toLowerCase())
             })
@@ -138,7 +138,7 @@ export const TicketList = ({ searchTermState }) => {
             {
                 filteredTickets.map(
                     (ticket) => { //callback function begin
-                        return <section className="ticket">
+                        return <section className="ticket" key={(`ticket--${ticket.id}`)}>
                             <header>{ticket.description}</header>
                             <footer>Emergency: {ticket.emergency ? "🧨" : "NO"}</footer>
                         </section>

@@ -1,0 +1,14 @@
+.employees {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.employee {
+    background: goldenrod;
+    border: 5px solid black;
+    color: black;
+    padding: 0.5rem;
+    margin: 1rem;
+}
