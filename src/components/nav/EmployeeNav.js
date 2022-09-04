@@ -11,6 +11,10 @@ export const EmployeeNav = () => {
             </li>
 
             <li className="navbar__item active">
+                <Link className="navbar__link" to="/customers">Customer</Link>
+            </li>
+
+            <li className="navbar__item active">
                 <Link className="navbar__link" to="/employees">Employees</Link>
             </li>
 

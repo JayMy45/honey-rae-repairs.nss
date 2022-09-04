@@ -1,25 +1,25 @@
-.employees {
+.customers {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-evenly;
 }
 
-.employee {
+.customer {
     background: goldenrod;
     border: 5px solid black;
     color: black;
     padding: 0.5rem;
     margin: 1rem;
-    width: 15rem;
+    width: 20rem;
 }
 
-.employee__footer {
+.customerDetails__footer {
     margin: 1rem 0 0.25rem 0;
     font-style: oblique;
 }
 
-.employee__header {
+.customer__header {
     font-size: larger;
     font-weight: 700;
     line-height: 3rem;

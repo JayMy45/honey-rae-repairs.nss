@@ -5,7 +5,7 @@ import "./Tickets.css"  //import css styling files directly from ticket.css with
 
 export const TicketList = ({ searchTermState }) => {
     const [tickets, setTickets] = useState([])  //  initial State set to empty array -- useState([]) is a function provided by React to store the state in a component returning an array that contains the initial state value at index 0  and a function that modifies the state at index 1(?).
-    // ^deconstructuring the useState() function...
+    // ^deconstructing the useState() function...
 
     const [filteredTickets, setFiltered] = useState([])
     //^ to display a list of tickets without modifying "tickets" variable above
