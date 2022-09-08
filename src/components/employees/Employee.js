@@ -9,3 +9,5 @@ export const Employee = ({ id, fullName, email, userId }) => {
         <div>Email: {email}</div>
     </section>
 }
+
+//link makes text for fullName into link and creates URL seen in <Link> tags.
