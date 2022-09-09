@@ -8,6 +8,15 @@ export const EmployeeForm = () => {
         userId: 0
     })
 
+    const [feedback, setFeedback] = useState("")
+
+    useEffect(() => {
+        if (feedback !== "") {
+            // Clear feedback to make entire element disappear after 3 seconds
+            setTimeout(() => setFeedback(""), 3000);
+        }
+    }, [feedback])
+
 
     //~need userId from local Storage...
     const localHoneyUser = localStorage.getItem("honey_user")
@@ -42,14 +51,18 @@ export const EmployeeForm = () => {
         })
             .then(response => response.json())
             .then(() => {
-                //Do nothing
+                setFeedback("Employee profile successfully saved")
             })
 
     }
 
     return (
+
         <form className="profile">
             <h2 className="profile__title">New Service Ticket</h2>
+            <div className={`${feedback.includes("Error") ? "error" : "feedback"} ${feedback === "" ? "invisible" : "visible"}`}>
+                {feedback}
+            </div>
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="specialty">Specialty:</label>
