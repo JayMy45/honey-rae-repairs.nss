@@ -1,8 +1,10 @@
+
 import { Outlet, Route, Routes } from "react-router-dom" //where in the hell is this????  AND wtf do they do???
 import { CustomerDetails } from "../customer/CustomerDetails"
 import { CustomerList } from "../customer/CustomerList"
 import { EmployeeDetails } from "../employees/EmployeeDetails"
 import { EmployeeList } from "../employees/EmployeeList"
+import { Profile } from "../profile/Profile"
 import { TicketContainer } from "../tickets/TicketContainer"
 
 
@@ -20,6 +22,7 @@ export const EmployeeViews = () => {
                 </>
             }>
 
+                <Route path="profiles" element={<Profile />} />
                 <Route path="tickets" element={<TicketContainer />} />
                 <Route path="employees" element={<EmployeeList />} />
                 <Route path="customers" element={<CustomerList />} />
