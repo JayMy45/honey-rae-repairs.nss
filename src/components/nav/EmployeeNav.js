@@ -17,6 +17,9 @@ export const EmployeeNav = () => {
             <li className="navbar__item active">
                 <Link className="navbar__link" to="/employees">Employees</Link>
             </li>
+            <li className="navbar__item active">
+                <Link className="navbar__link" to="/profiles">Profile</Link>
+            </li>
 
             {
                 localStorage.getItem("honey_user")  //ternary statement on line 14 (?)...WHAT
