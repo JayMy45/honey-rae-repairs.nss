@@ -6,7 +6,7 @@ import { EmployeeViews } from "./EmployeeViews"
 //this function renders the <TicketList> component.
 export const ApplicationViews = () => {
 
-	const localHoneyUser = localStorage.getItem("honey_user")
+	const localHoneyUser = localStorage.getItem("honey_customer")
 	const honeyUserObject = JSON.parse(localHoneyUser)
 
 

@@ -1,47 +1,82 @@
-import React, { useState } from "react"
+import React, { useRef, useState } from "react"
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom"
 import "./Login.css"
 
 export const Login = () => {
-    const [email, set] = useState("hpassfield7@netvibes.com")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const existDialog = useRef()
     const navigate = useNavigate()
 
     const handleLogin = (e) => {
         e.preventDefault()
-
-        return fetch(`http://localhost:8088/users?email=${email}`)  //fetch call to json server 
+        fetch(`http://localhost:8000/login`, {
+            method: "POST",
+            body: JSON.stringify({ email, password }),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
             .then(res => res.json())
-            .then(foundUsers => {
-                if (foundUsers.length === 1) {  //if valid email in localStorage (below) setting setItem to "honey_user"
-                    const user = foundUsers[0]
-                    localStorage.setItem("honey_user", JSON.stringify({
-                        id: user.id,
-                        staff: user.isStaff
-                    }))
-
+            .then(authInfo => {
+                if (authInfo.valid) {
+                    localStorage.setItem("honey_customer", JSON.stringify(authInfo))
                     navigate("/")
-                }
-                else {
-                    window.alert("Invalid login")
+                } else {
+                    existDialog.current.showModal()
                 }
             })
     }
 
+    //  const handleLogin = (e) => {
+    //         e.preventDefault()
+
+    //         return fetch(`http://localhost:8088/users?email=${email}`)  //fetch call to json server 
+    //             .then(res => res.json())
+    //             .then(foundUsers => {
+    //                 if (foundUsers.length === 1) {  //if valid email in localStorage (below) setting setItem to "honey_customer"
+    //                     const user = foundUsers[0]
+    //                     localStorage.setItem("honey_customer", JSON.stringify({
+    //                         id: user.id,
+    //                         staff: user.isStaff
+    //                     }))
+
+    //                     navigate("/")
+    //                 }
+    //                 else {
+    //                     window.alert("Invalid login")
+    //                 }
+    //             })
+    //     }
+
+
     return (
         <main className="container--login">
+            <dialog className="dialog dialog--auth" ref={existDialog}>
+                <div>User does not exist</div>
+                <button className="button--close" onClick={e => existDialog.current.close()}>Close</button>
+            </dialog>
+
             <section>
                 <form className="form--login" onSubmit={handleLogin}>
-                    <h1>Honey Rae Repairs</h1>
+                    <h1>Honey Rae's Repairs</h1>
                     <h2>Please sign in</h2>
                     <fieldset>
                         <label htmlFor="inputEmail"> Email address </label>
-                        <input type="email"
-                            value={email}
-                            onChange={evt => set(evt.target.value)}
+                        <input type="email" id="inputEmail"
+                            onChange={evt => setEmail(evt.target.value)}
                             className="form-control"
                             placeholder="Email address"
                             required autoFocus />
+                    </fieldset>
+                    <fieldset>
+                        <label htmlFor="inputPassword"> Password </label>
+                        <input type="password" id="inputPassword"
+                            onChange={evt => setPassword(evt.target.value)}
+                            className="form-control"
+                            placeholder="Password"
+                            required />
                     </fieldset>
                     <fieldset>
                         <button type="submit">
@@ -56,4 +91,3 @@ export const Login = () => {
         </main>
     )
 }
-

@@ -5,7 +5,7 @@ import "./NavBar.css"
 
 export const NavBar = () => {
 
-    const localHoneyUser = localStorage.getItem("honey_user")
+    const localHoneyUser = localStorage.getItem("honey_customer")
     const honeyUserObject = JSON.parse(localHoneyUser)
 
 
