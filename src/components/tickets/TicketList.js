@@ -17,7 +17,7 @@ export const TicketList = ({ searchTermState }) => {
 
     const navigate = useNavigate() //used for navigation...
 
-    const localHoneyUser = localStorage.getItem("honey_user")  //this variable holds object created whenever logged in which honey_user: which is created whenever a authorized user logs in with email (Login.js lines 18-20)
+    const localHoneyUser = localStorage.getItem("honey_customer")  //this variable holds object created whenever logged in which honey_customer: which is created whenever a authorized user logs in with email (Login.js lines 18-20)
     const honeyUserObject = JSON.parse(localHoneyUser) //converts JSON data to object that can be used code-side
 
     useEffect(

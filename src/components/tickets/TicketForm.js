@@ -17,7 +17,7 @@ export const TicketForm = () => {
 
     const navigate = useNavigate()
 
-    const localHoneyUser = localStorage.getItem("honey_user")
+    const localHoneyUser = localStorage.getItem("honey_customer")
     const honeyUserObject = JSON.parse(localHoneyUser)
 
     const handleSaveButtonClick = (event) => {  //runs instructions when submit button is clicked...

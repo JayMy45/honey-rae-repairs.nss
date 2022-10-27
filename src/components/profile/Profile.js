@@ -4,7 +4,7 @@ import { EmployeeForm } from "./EmployeeForm"
 
 export const Profile = () => {
 
-    const localHoneyUser = localStorage.getItem("honey_user")
+    const localHoneyUser = localStorage.getItem("honey_customer")
     const honeyUserObject = JSON.parse(localHoneyUser)
 
 

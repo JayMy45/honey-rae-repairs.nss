@@ -10,7 +10,7 @@
 
 
 //     //~need userId from local Storage...
-//     const localHoneyUser = localStorage.getItem("honey_user")
+//     const localHoneyUser = localStorage.getItem("honey_customer")
 //     const honeyUserObject = JSON.parse(localHoneyUser)
 
 //     // TODO: Get employee profile info from API and update state
